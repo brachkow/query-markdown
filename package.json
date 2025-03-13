@@ -1,0 +1,41 @@
+{
+  "name": "query-markdown",
+  "version": "1.0.0",
+  "description": "CLI tool to query markdown files with SQL",
+  "main": "dist/index.js",
+  "type": "module",
+  "bin": {
+    "query-markdown": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node --esm src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "markdown",
+    "sql",
+    "duckdb",
+    "cli"
+  ],
+  "author": "",
+  "license": "MIT",
+  "packageManager": "pnpm@10.4.1",
+  "dependencies": {
+    "@types/lodash-es": "^4.17.12",
+    "@types/node": "^22.13.10",
+    "commander": "^13.1.0",
+    "duckdb": "^1.2.0",
+    "glob": "^11.0.1",
+    "gray-matter": "^4.0.3",
+    "lodash-es": "^4.17.21",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "duckdb"
+    ]
+  }
+}
