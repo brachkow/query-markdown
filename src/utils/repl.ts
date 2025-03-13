@@ -18,6 +18,12 @@ export async function startRepl(db: duckdb.Database): Promise<void> {
   console.log('Type .exit, .quit, or press Ctrl+C to exit');
   console.log('Type .tables to list available tables');
   console.log('Type .schema <table> to show table schema');
+  console.log('Type .help to show this help message');
+  console.log();
+  console.log('Available tables:');
+  console.log(
+    '  - frontmatter: Contains all frontmatter data and content from markdown files',
+  );
   console.log();
 
   rl.prompt();
@@ -35,6 +41,22 @@ export async function startRepl(db: duckdb.Database): Promise<void> {
       trimmedLine.toLowerCase() === '.quit'
     ) {
       rl.close();
+      return;
+    }
+
+    if (trimmedLine.toLowerCase() === '.help') {
+      console.log('Available commands:');
+      console.log('  .exit, .quit - Exit the REPL');
+      console.log('  .tables - List available tables');
+      console.log('  .schema <table> - Show table schema');
+      console.log('  .help - Show this help message');
+      console.log();
+      console.log('Available tables:');
+      console.log(
+        '  - frontmatter: Contains all frontmatter data and content from markdown files',
+      );
+      console.log();
+      rl.prompt();
       return;
     }
 

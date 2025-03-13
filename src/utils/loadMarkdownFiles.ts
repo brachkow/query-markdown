@@ -59,11 +59,15 @@ export async function loadMarkdownFiles(
       const content = await fs.readFile(filePath, 'utf-8');
       const { data, content: markdownContent } = matter(content);
 
+      const frontmatter = flattenFrontmatter(data);
+      // Add content to frontmatter so it's available for queries
+      frontmatter.content = markdownContent;
+
       markdownFiles.push({
         filePath,
         fileName: path.basename(filePath),
         content: markdownContent,
-        frontmatter: flattenFrontmatter(data),
+        frontmatter,
       });
     } catch (error) {
       console.error(`Error loading file ${filePath}: ${error}`);
