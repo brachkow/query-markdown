@@ -69,6 +69,7 @@ export async function startRepl(db: duckdb.Database): Promise<void> {
           WHERE type='table' OR type='view'
           ORDER BY name
         `,
+          false,
         );
       } catch (error) {
         console.error('Error listing tables:', error);
@@ -80,7 +81,7 @@ export async function startRepl(db: duckdb.Database): Promise<void> {
     if (trimmedLine.toLowerCase().startsWith('.schema ')) {
       const tableName = trimmedLine.substring(8).trim();
       try {
-        await executeQuery(db, `PRAGMA table_info(${tableName})`);
+        await executeQuery(db, `PRAGMA table_info(${tableName})`, false);
       } catch (error) {
         console.error(`Error getting schema for ${tableName}:`, error);
       }
@@ -89,7 +90,7 @@ export async function startRepl(db: duckdb.Database): Promise<void> {
     }
 
     try {
-      await executeQuery(db, trimmedLine);
+      await executeQuery(db, trimmedLine, false);
     } catch (error) {
       // Error is already logged in executeQuery
     }

@@ -4,10 +4,12 @@ import * as duckdb from 'duckdb';
  * Execute a SQL query against the DuckDB database
  * @param db DuckDB database connection
  * @param query SQL query to execute
+ * @param jsonOutput Whether to output results as JSON
  */
 export async function executeQuery(
   db: duckdb.Database,
   query: string,
+  jsonOutput: boolean = false,
 ): Promise<void> {
   return new Promise((resolve, reject) => {
     db.all(query, (err, rows) => {
@@ -18,7 +20,18 @@ export async function executeQuery(
       }
 
       if (!rows || rows.length === 0) {
-        console.log('Query returned no results');
+        if (jsonOutput) {
+          console.log('[]');
+        } else {
+          console.log('Query returned no results');
+        }
+        resolve();
+        return;
+      }
+
+      if (jsonOutput) {
+        // Output as JSON
+        console.log(JSON.stringify(rows, null, 2));
         resolve();
         return;
       }
